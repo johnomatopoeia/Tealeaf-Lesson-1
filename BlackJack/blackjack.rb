@@ -32,9 +32,7 @@ Hit = "Hit"
 Win = "win"
 Lose = "lose"
 Draw = "draw"
-
 DECK = 2 #  the number of 52-cards deck
-
 remainder_cards = [] 
 people={delear:{name: "Big_Boss_Daniel_Tsneg", hands:[]}, players:[]} 
 
@@ -70,7 +68,6 @@ def add_players(people)
   printf "Another people want to play? (Y/N) "
   add_players(people) if gets.chomp.strip.upcase == "Y"
 end
-
 
 def add_cards? (remainder_cards)
   if remainder_cards.size <  DECK * 52 / 2
@@ -122,9 +119,7 @@ def count_cards_value (hand)
     end
     c = c + t
   end
-
   max_count_cards = (c.dup.delete_if { |v| v > 21 }.sort.reverse[0])
-
   if max_count_cards == nil
     hand[:note] =  Bursted
     hand[:count_cards] = c.sort[0].to_i
@@ -159,7 +154,6 @@ def start_poker_party(people,remainder_cards)
 end
 
 def win_or_lose (people)
-
   delear = people[:delear]
   delear_name = delear[:name]
   delear_hand = delear[:hands].last
@@ -176,7 +170,6 @@ def win_or_lose (people)
     count_cards_value player_hand
     player_note = player_hand[:note]
     player_count_cards = player_hand[:count_cards].to_i
-
     if delear_note== BlackJack 
       if player_note == BlackJack
         player_hand[:vs_result] = Draw
@@ -219,13 +212,11 @@ def win_or_lose (people)
         delear_hand[:vs_result][player_name] = Lose
       end
     end
-  end
-  
+  end  
 end
 
 
 def stay_or_hit (people,remainder_cards)
-
   puts " "+"-> Player <-".reverse_color
   puts ""
   people[:players].each do |player|
@@ -236,7 +227,6 @@ def stay_or_hit (people,remainder_cards)
     puts "@#{player_name}".brown+": cards:#{player_cards}, count_cards:#{player_count_cards}"
     
     begin 
-
       player_note = player_hand[:note]
       if player_note == BlackJack
         puts "@#{player_name}".brown+": cards:#{player_cards}, count_cards:#{player_count_cards}, note:#{BlackJack} "
@@ -267,7 +257,6 @@ def stay_or_hit (people,remainder_cards)
       end
       puts "" if stay_or_hit == 'S'
     end until stay_or_hit =~ /[S]/     
-
   end
 
   puts " "+"-> Delear <-".reverse_color
@@ -312,7 +301,7 @@ def show_hand_result(people)
   delear_count_cards = delear_hand[:count_cards]
   delear_vs_result = delear_hand[:vs_result]
   delear_note = delear_hand[:note]
-  
+
   delear_vs_result.each do |k,v|
     puts "Player: "+"@#{k}".brown + " vs ".red + "Delear: "+"@#{delear_name}".brown + " "  
     people[:players].each do |player|
@@ -335,7 +324,6 @@ def show_hand_result(people)
       end
     end
   end
-  
 end
 
 def hist_show_hand_result(people)
@@ -376,18 +364,15 @@ if welcome? people
     delear_count_cards = delear_hand[:count_cards]
     puts "Delear "+"@#{delear_name}".brown+" cards:"+"[#{delear_cards[0]},*]".blue
     puts ""
-
-    stay_or_hit people,remainder_cards    
     
+    stay_or_hit people,remainder_cards        
     win_or_lose people
     
-    #system "clear"
     puts ""
     puts "-------------------------------------------------------------------------------".green
     show_hand_result people
     puts "-------------------------------------------------------------------------------".green
     puts ""  
-
     
     printf "(#{'E'.red})exit or any key to play again. "
 
@@ -404,60 +389,3 @@ if welcome? people
   end until is_exit == "E"
 end
 #--->>
-
-=begin
-# 計算賭注金額
-# GUI: Display Message
-# 
-=end
-
-
-
-  
-
-
-# working flow
-=begin
-# 第一回合 莊家要揭露第一張牌
-
-# check player win_or_lose
-# player stay or hit cards
-
-# check delear win_or_lose
-# delear stay or hit cards
-
-# next round
-#--->>
-=end
-
-
-# Delear vs players
-=begin
-Delear result=> {player#1:'Win or Lose or Draw', player#2:'Win or Lose or Draw'}
-Player result=> 'Win or Lose or Draw '
-
-=end
-
-
-# Win:
-=begin
- 
- (priority order)
-
- BlackJack : first round is [A,J/Q/K]
-
- count_cards: 21,......> burst
-
- 
- delear vs players
-                    BJ           count_cards          burst
- BJ                 p_win         p_lose              p_lose
-
- 
- count_cards        p_win        higher value wins.   p_lose 
-
- burst              p_win        p_win                draw_game
-
-=end
-
-
