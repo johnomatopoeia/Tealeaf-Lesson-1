@@ -302,24 +302,9 @@ def stay_or_hit (people,remainder_cards)
       puts " cards:[#{delear_cards}, count_cards:#{delear_count_cards}"
     end
   end until stay_or_hit =~ /[S]/     
-
 end
 
-
-
-
 def show_hand_result(people)
-
-  #sort_players = people[:players].sort do |x,y|
-  #  x_hand = x[:hands].last
-  #  y_hand = y[:hands].last
-  #  x_hand[:count_cards] <=> y_hand[:count_cards]
-  #end
-  
-  #printf "\nDebug: delear = #{people[:delear]}\n"
-  #printf "\nDebug: players = #{people[:players]}\n"
-  #printf "\nDebug: sort_players = #{sort_players.reverse}\n"
-
   delear = people[:delear]
   delear_name = delear[:name]
   delear_hand = delear[:hands].last
@@ -338,22 +323,39 @@ def show_hand_result(people)
       player_vs_result = player_hand[:vs_result]
       player_note = player_hand[:note]
       if player_name == k
-        puts " |-> "+ "#{player_cards}".blue+ " vs " +  "#{delear_cards}".blue         
-        
-        #puts " |-> "+ "#{player_count_cards}".blue + "(#{player_note})" + " vs " + "#{delear_count_cards}".blue + "(#{delear_note})"
-        #puts " |-> "+ "#{player_count_cards}".blue +  " vs " + "#{delear_count_cards}".blue 
+        puts " |-> "+ "#{player_cards}".blue+ " vs " +  "#{delear_cards}".blue             
         tmp_str = "#{player_count_cards}".blue
         tmp_str = tmp_str + " #{player_note}"  if !player_note.empty? 
         tmp_str += " vs "
         tmp_str += "#{delear_count_cards}".blue
         tmp_str = tmp_str + " #{delear_note} " if !delear_note.empty?  
         puts " |-> "+tmp_str
-
         puts " |-> "+ "@#{player_name}".brown + " "+ "#{player_vs_result}".blue + " ; " + "@#{delear_name}".brown + " " + "#{v}".blue 
+        puts " |   "
       end
     end
   end
   
+end
+
+def hist_show_hand_result(people)
+  people[:players].each do |player|
+    player_name = player[:name]
+    puts "Player: "+"@#{player_name}".brown 
+    round = 0
+    player[:hands].each do |player_hand|
+      player_cards = player_hand[:cards]
+      player_count_cards = player_hand[:count_cards]
+      player_vs_result = player_hand[:vs_result]
+      player_note = player_hand[:note]
+      tmp_str = " |-> Round-#{round +=1 }: "+ "#{player_cards}".blue         
+      tmp_str += " #{player_count_cards}".blue
+      tmp_str += " #{player_note}"  if !player_note.empty?                  
+      tmp_str += " #{player_vs_result}".blue
+      puts tmp_str      
+    end
+    puts " |   "
+  end
 end
 
 #--->>
@@ -376,23 +378,29 @@ if welcome? people
     puts ""
 
     stay_or_hit people,remainder_cards    
+    
     win_or_lose people
     
-    system "clear"
+    #system "clear"
     puts ""
     puts "-------------------------------------------------------------------------------".green
     show_hand_result people
     puts "-------------------------------------------------------------------------------".green
-      
+    puts ""  
+
+    
     printf "(#{'E'.red})exit or any key to play again. "
 
     is_exit = gets.chomp.upcase
     if  is_exit == "E"
       system "clear"
-      puts ""
+      puts "Report".reverse_color
+      puts "-------------------------------------------------------------------------------".green
+      hist_show_hand_result people
+      puts "-------------------------------------------------------------------------------".green
+      puts ""  
       puts "Bye, Bye $-_-$ "  
     end
-    system "clear" 
   end until is_exit == "E"
 end
 #--->>
