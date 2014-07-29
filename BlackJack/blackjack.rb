@@ -131,7 +131,6 @@ def count_cards_value (hand)
   end
 end
 
-
 def start_poker_party(people,remainder_cards)
   delear = people[:delear]
   delear_name = delear[:name]
@@ -346,6 +345,7 @@ def hist_show_hand_result(people)
   end
 end
 
+# Here we go ^_^y
 #--->>
 if welcome? people
   begin
