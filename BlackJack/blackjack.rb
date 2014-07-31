@@ -236,7 +236,13 @@ def stay_or_hit (people,remainder_cards)
       else
         printf "@#{player_name}".brown+": (#{'H'.red})it or (#{'S'.red})tay ? "
         stay_or_hit=gets.chomp.upcase
-        if stay_or_hit =~ /[SH]/
+        
+        #---
+        #if stay_or_hit =~ /[SH]/
+        #---
+        #+++
+        if ['S','H'].include?(stay_or_hit) 
+        #+++  
           if stay_or_hit == 'H'
             hit_card player_name,player_cards,remainder_cards
             count_cards_value player_hand # to_i will bypass 'Bursted / BlackJack' string ex: '21-BlackJack'.to_i == 21"
@@ -245,7 +251,6 @@ def stay_or_hit (people,remainder_cards)
             puts "@#{player_name}".brown+": cards:#{player_cards}, count_cards:#{player_count_cards}}"              
           else stay_or_hit == 'S'
             player_hand[:note] == Stay
-            #puts "@#{player_name}".brown+": cards:[#{player_cards}, note:#{Stay} ]"
           end 
         else
           puts "Wrong input, S/H, please."
@@ -345,7 +350,7 @@ end
 # Here we go ^_^y
 #--->>
 if welcome? people
-  begin
+  while (true)
     system 'clear'
     puts "----------------------------------".green
     puts "| ".green+"Let's start to play Balckjack!"+" |".green
@@ -372,9 +377,8 @@ if welcome? people
     puts ""  
     
     printf "(#{'E'.red})exit or any key to play again. "
-
     is_exit = gets.chomp.upcase
-    if  is_exit == "E"
+    if ['E'].include?(is_exit)
       system "clear"
       puts "Report".reverse_color
       puts "-------------------------------------------------------------------------------".green
@@ -382,7 +386,8 @@ if welcome? people
       puts "-------------------------------------------------------------------------------".green
       puts ""  
       puts "Bye, Bye $-_-$ "  
+      break
     end
-  end until is_exit == "E"
+  end
 end
 #--->>
