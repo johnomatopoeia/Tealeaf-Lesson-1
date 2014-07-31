@@ -27,11 +27,8 @@ s += "        (____)\n"
 s += "  ---.__(__)  \n"
 s +="\n"
 
-<<<<<<< HEAD
+
 PRS = { "P" => p, "R" => r, "S" => s }
-=======
-PRS = { paper:p, rock:r, scissor:s }
->>>>>>> 001c0ab4dab042d939cc71e1db2ea741b03b2ba1
 
 system 'clear'
 puts "-------------------------------------------------------"
@@ -42,8 +39,7 @@ puts "-------------------------------------------------------"
 
 puts ""
 
-while true
-  
+while true  
   begin  
     printf " (P)aper (R)ock (S)cissor ?"    
     user_choice = gets.chomp.upcase
