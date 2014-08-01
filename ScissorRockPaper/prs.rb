@@ -34,7 +34,7 @@ system 'clear'
 puts "-------------------------------------------------------"
 puts "| Paper Rock Scissor  *_*                             |"
 puts "|                                                     |"
-puts "| ASCII art ref: http://ascii.co.uk/art/finge         |"
+puts "| ASCII art ref: http://ascii.co.uk/art               |"
 puts "-------------------------------------------------------"
 
 puts ""
