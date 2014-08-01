@@ -1,3 +1,8 @@
+## Daniel I think the color really pops, and I am impressed with your design.  
+#I totally spent an hour trying to figure out how to use the ansi suits, and gave up without trying the simple solution.
+#I have since borrowed your method.  I did have trouble following everything that was going during gameplay, but
+#that is probably because I am lazy and didn't want to read to much.  -JZ
+
 #require 'pry'
 
 class String
